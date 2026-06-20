@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>The 🍆 Files</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍆</text></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+:root{
+--bg1:#08111f;
+--bg2:#131c35;
+--glass:rgba(255,255,255,.08);
+--border:rgba(255,255,255,.15);
+--text:#f8fafc;
+}
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Inter,sans-serif;
+color:var(--text);
+background:
+radial-gradient(circle at top left,#2563eb33,transparent 35%),
+radial-gradient(circle at bottom right,#9333ea33,transparent 35%),
+linear-gradient(135deg,var(--bg1),var(--bg2));
+min-height:100vh;
+display:flex;
+}
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:95px;
+height:100vh;
+padding:12px;
+display:flex;
+flex-direction:column;
+gap:10px;
+background:rgba(0,0,0,.25);
+backdrop-filter:blur(20px);
+border-right:1px solid var(--border);
+}
+
+.sidebar-btn{
+border:none;
+border-radius:20px;
+min-height:58px;
+background:var(--glass);
+backdrop-filter:blur(20px);
+color:white;
+cursor:pointer;
+transition:.25s;
+}
+
+.sidebar-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 25px rgba(59,130,246,.35);
+}
+
+.main-content{
+margin-left:110px;
+width:100%;
+padding:25px;
+}
+
+h1{
+font-size:3.5rem;
+text-align:center;
+margin-bottom:15px;
+}
+
+#searchInput{
+width:100%;
+max-width:600px;
+padding:18px;
+border-radius:22px;
+border:1px solid var(--border);
+background:var(--glass);
+color:white;
+}
+
+#lolbutton{
+padding:15px 24px;
+border:none;
+border-radius:22px;
+background:var(--glass);
+color:white;
+cursor:pointer;
+}
+
+.letter-section{
+max-width:1200px;
+margin:30px auto;
+padding:30px;
+border-radius:34px;
+background:var(--glass);
+backdrop-filter:blur(24px);
+border:1px solid var(--border);
+}
+
+.letter-header{
+font-size:38px;
+font-weight:800;
+margin-bottom:20px;
+}
+
+.buttons-container{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+input[type="button"]{
+width:100%;
+padding:24px 30px;
+border-radius:28px;
+border:1px solid rgba(255,255,255,.18);
+background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.05));
+backdrop-filter:blur(20px);
+font-size:18px;
+font-weight:700;
+color:white;
+text-align:left;
+cursor:pointer;
+transition:.25s;
+}
+
+input[type="button"]:hover{
+transform:translateY(-3px) scale(1.01);
+box-shadow:0 15px 40px rgba(59,130,246,.3);
+}
+</style>
+
+<style>
+body{background:#0b0b0b;color:white;font-family:Inter,sans-serif;}
+
+.toolbar{display:flex;gap:12px;justify-content:center;margin:10px 0 15px 0;}
+.toolbar button{padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:white;cursor:pointer;font-weight:600;transition:0.2s;}
+.toolbar button:hover{background:rgba(255,255,255,0.18);}
+
+#mainSearch{width:100%;max-width:420px;padding:12px;border-radius:10px;border:none;margin:10px auto;display:block;}
+
+.game{position:relative;}
+.game button{
+ width:100%;padding:20px;border-radius:18px;border:1px solid rgba(255,255,255,0.2);
+ background:rgba(255,255,255,0.08);color:white;text-align:left;cursor:pointer;
+ transition:all 0.25s ease;overflow:hidden;
+}
+
+.game button::before{
+ content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;
+ background:linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+ transition:0.5s;
+}
+.game button:hover::before{left:100%;}
+
+.game button:hover{
+ transform:translateY(-3px) scale(1.02);
+ background:rgba(255,255,255,0.18);
+ box-shadow:0 10px 25px rgba(0,0,0,0.4),0 0 15px rgba(255,255,255,0.25);
+}
+
+.star{position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:28px;cursor:pointer;}
+.game:hover .star{transform:translateY(-50%) scale(1.2);color:gold;}
+
+#favPanel{position:fixed;right:0;top:0;width:280px;height:100%;background:#111;color:#fff;padding:15px;transform:translateX(100%);transition:.3s;overflow:auto;}
+#favPanel.open{transform:translateX(0)}
+
+.eggplant{position:fixed;pointer-events:none;animation:spin linear infinite;opacity:0.8;}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+</style>
+
+<script>
+let favourites=[];
+
+function lucky(){
+ const g=document.querySelectorAll('.game button');
+ if(!g.length)return;
+ g[Math.floor(Math.random()*g.length)].click();
+}
+
+function openFav(){
+ const p=document.getElementById('favPanel');
+ p.innerHTML='<h2>⭐ Favorites</h2>';
+ favourites.forEach(name=>{
+   const d=document.createElement('div');
+   d.textContent=name;
+   d.style.margin='8px 0';
+   d.onclick=()=>{
+     const btn=[...document.querySelectorAll('.game button')].find(b=>b.textContent===name);
+     if(btn) btn.click();
+   };
+   p.appendChild(d);
+ });
+ p.classList.toggle('open');
+}
+
+function createEggplants(){
+ for(let i=0;i<25;i++){
+   const el=document.createElement('div');
+   el.className='eggplant';
+   el.textContent='🍆';
+   el.style.left=Math.random()*100+'vw';
+   el.style.top=Math.random()*100+'vh';
+   el.style.fontSize=(20+Math.random()*60)+'px';
+   el.style.animationDuration=(8+Math.random()*12)+'s';
+   document.body.appendChild(el);
+ }
+}
+
+function rebuildGames(){
+ const inputs=document.querySelectorAll('input[type="button"]');
+ inputs.forEach(old=>{
+   const wrapper=document.createElement('div');
+   wrapper.className='game';
+
+   const btn=document.createElement('button');
+   btn.textContent=old.value;
+   btn.onclick=old.onclick;
+
+   const star=document.createElement('span');
+   star.className='star';
+   star.textContent='☆';
+
+   star.onclick=(e)=>{
+     e.stopPropagation();
+     const name=btn.textContent;
+     if(favourites.includes(name)){
+       favourites=favourites.filter(x=>x!==name);
+       star.textContent='☆';
+     }else{
+       favourites.push(name);
+       star.textContent='★';
+     }
+   };
+
+   wrapper.appendChild(btn);
+   wrapper.appendChild(star);
+   old.replaceWith(wrapper);
+ });
+}
+
+function setupSearch(){
+ const input=document.getElementById('mainSearch');
+ input.addEventListener('input',()=>{
+   const term=input.value.toLowerCase();
+   document.querySelectorAll('.game').forEach(game=>{
+     const name=game.querySelector('button').textContent.toLowerCase();
+     game.style.display = name.includes(term) ? 'block' : 'none';
+   });
+ });
+}
+
+// shortcut
+document.addEventListener('keydown',(e)=>{
+ if(e.ctrlKey && e.shiftKey && e.key.toLowerCase()==='z'){
+   window.location.href='https://app.educationperfect.com/learning/dashboard';
+ }
+});
+
+window.addEventListener('load',()=>{
+ createEggplants();
+ setTimeout(()=>{
+   rebuildGames();
+   setupSearch();
+ },2000);
+});
+</script>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+    </div>
+
+    <div class="main-content">
+<div style="text-align:center">
+
+<div class="toolbar">
+<button onclick="window.open('https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/','_blank')">📄 Game List</button>
+</div>
+
+<input id="mainSearch" placeholder="Search games...">
+
+<div class="toolbar">
+<button onclick="lucky()">🎲 Im Feeling Lucky</button>
+<button onclick="openFav()">⭐ Favorites</button>
+<button onclick="window.location.href='https://app.educationperfect.com/learning/dashboard'">📚 Dashboard</button>
+</div>
+
+</div>
+<div id="favPanel"></div>
+
+        <h1>The 🍆 Files</h1>
+    <h2 style="color: white; text-align: center; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-weight: normal; font-size: 18px;">
+    Files from 
+    <a href="https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/" 
+        target="_blank" 
+        style="display: inline; color: #79aadb; text-decoration: none; font-size: 18px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+        a document by @TheEggplantFiles
+    </a>
+  
+    <h2 style="color: white; text-align: center; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-weight: normal; font-size: 18px;">
+
+        
+        
+    <button id="lolbutton" onclick="const script = document.createElement('script');script.src = 'https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@latest/game.js';document.body.appendChild(script);">Click to load if it isnt loading</button>
+    </h2> 
+
+        
+        <div id="sections-container">  
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/game.js"></script>
+    <script>
+// =====================
+// PANIC SYSTEM (FULL)
+// =====================
+let panicKey = prompt("Set panic key (1 key):") || "z";
+let panicURL = prompt("Set panic website:") || "https://app.educationperfect.com/learning/dashboard";
+
+function panic(){
+  window.location.href = panicURL;
+}
+
+// key trigger
+document.addEventListener("keydown", (e)=>{
+  if(e.key.toLowerCase() === panicKey.toLowerCase()){
+    panic();
+  }
+});
+
+// =====================
+// TURN DASHBOARD INTO PANIC
+// =====================
+document.querySelectorAll("button").forEach(btn=>{
+  if(btn.innerText.toLowerCase().includes("dashboard")){
+    btn.innerText = "🚨 Panic";
+    btn.onclick = panic;
+  }
+});
+
+// =====================
+// ADD CLICKER BUTTON
+// =====================
+const toolbar = document.querySelector(".toolbar");
+if(toolbar){
+  const clicker = document.createElement("button");
+  clicker.innerText = "🍆 Clicker";
+  clicker.onclick = () => {
+    window.location.href = "https://radioactivedonuts.github.io/EggplantClicker/";
+  };
+  toolbar.appendChild(clicker);
+}
+
+// =====================
+// FIX SEARCH (REAL FIX)
+// =====================
+const search =
+  document.getElementById("mainSearch") ||
+  document.getElementById("searchInput");
+
+if(search){
+  search.addEventListener("input", ()=>{
+    const term = search.value.toLowerCase();
+
+    document.querySelectorAll(".game").forEach(game=>{
+      const btn = game.querySelector("button");
+      if(!btn) return;
+
+      const name = btn.textContent.toLowerCase();
+      game.style.display = name.includes(term) ? "block" : "none";
+    });
+  });
+}
+
+// =====================
+// MINECRAFT SPLASH TEXT
+// =====================
+const splashTexts = [
+  "EPIC","INSANE","NO WAY","LEGENDARY",
+  "CRAZY","PRO","UNBLOCKED","100% REAL",
+  "SUS?!","NO VIRUS 😎"
+];
+
+const splash = document.createElement("div");
+splash.innerText = splashTexts[Math.floor(Math.random()*splashTexts.length)];
+
+splash.style = `
+ position:fixed;
+ top:10px;
+ left:15px;
+ color:yellow;
+ font-weight:bold;
+ transform:rotate(-15deg);
+ z-index:9999;
+ pointer-events:none;
+`;
+document.body.appendChild(splash);
+
+// =====================
+// CREDIT TEXT
+// =====================
+const credit = document.createElement("div");
+credit.innerText = "created by RadioactiveDonuts";
+
+credit.style = `
+ position:fixed;
+ bottom:10px;
+ right:10px;
+ font-size:12px;
+ opacity:0.7;
+`;
+document.body.appendChild(credit);
+</script>
+
+   </body> 
+   </html>

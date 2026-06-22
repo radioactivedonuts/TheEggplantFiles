@@ -1,73 +1,59 @@
-# 🎮The Eggplant Files
+# The 🍆 Files
 
-A clean, customizable game hub with a built-in panic system, favorites, search, and a Minecraft-style UI.
+**The ultimate chaotic single-file HTML game hub.**
 
----
+A meme-filled browser homepage with eggplant currency, animated themes, favorites, and a full custom theme creator.
 
-## 🚀 Features
+![Eggplant](https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/eggplant.png) <!-- replace with actual image if you want -->
 
----
+## ✨ Features
 
-### 🔍 Search
-- Filters games in real time
-- Only shows matching game titles
+- 🍆 **Eggplant Clicker System** — Earn eggplants by playing games
+- 🎨 **Beautiful Animated Themes**:
+  - Gold (luxury)
+  - Ocean, Forest, Lava, Ice (gradient animated)
+  - Rainbow, Neon, Galaxy (with twinkling stars)
+- **🎨 Custom Theme Creator** — 4 color pickers + live animation speed slider
+- ⭐ **Favorites** system
+- 🔍 **Smart Search** — hides empty letter sections
+- ⚡ **I'm Feeling Lucky** button
+- 🛒 **Shop** to buy themes
+- 🚨 **Panic Key** (default: `Tab`) — instant escape
+- Minecraft-style random splash text
 
----
+## 🚀 How to Run
 
-### ⭐ Favorites
-- Click the star on a game to favorite it
-- Open the favorites panel anytime
+1. Download `index.html`
+2. Open the file in your browser (Chrome/Firefox recommended)
+3. No installation or server needed
 
----
+## 🎮 Controls
 
-### 🎲 Lucky Button
-- Launches a random game
+| Button              | Function |
+|---------------------|---------|
+| **🎲 Im Feeling Lucky** | Random game |
+| **⭐ Favorites**     | View / jump to favorited games |
+| **🛒 Shop**          | Buy themes |
+| **🎨 Custom**        | Open custom theme maker |
 
----
+**Custom Theme Tips:**
+- Use the 4 color pickers
+- Adjust speed (3s = very fast, 30s = slow & smooth)
+- "Apply Now" = temporary, "Save" = remembers after refresh
 
-### 🍆 Eggplant Clicker Button
-- Quick access button to:
-https://radioactivedonuts.github.io/EggplantClicker/
+## 🛠️ Tech Stack
 
----
+- Single HTML file
+- Vanilla JavaScript + CSS
+- LocalStorage (persists themes, eggplants, favorites)
+- External games via `https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/game.js`
 
-### ✨ Visual Features
-- Rotating background elements 🍆
-- Hover effects for buttons
-- Minecraft-style splash text (random each load)
 
----
+## Credits
 
-### 📝 Credit
-Created by RadioactiveDonuts
-
----
-
-## 🛠 How to Use
-
-1. Open the HTML file
-2. Make sure a teacher isn't looking
-3. Use search to find games
-4. Click ⭐ to save favorites
-5. Press your panic key if needed
-
----
-
-## ⚠️ Notes
-
-- This is a client-side only site (runs locally)
-- Works best in Chrome / Edge
-- Panic key is NOT saved between sessions, and may be bugged (yet)
+Made with maximum 🍆 energy by RadioactiveDonuts
 
 ---
 
-## 🔥 Future Ideas
-
-- Save panic key
-- Game thumbnails
-- Highlight search matches
-- Fake school page mode
-
----
-
-Enjoy 😎
+**Feel free to fork and make it even more cursed.**
+**

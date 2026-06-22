@@ -4,8 +4,6 @@
 
 A meme-filled browser homepage with eggplant currency, animated themes, favorites, and a full custom theme creator.
 
-![Eggplant](https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/eggplant.png) <!-- replace with actual image if you want -->
-
 ## ✨ Features
 
 - 🍆 **Eggplant Clicker System** — Earn eggplants by playing games

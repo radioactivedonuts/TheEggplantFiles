@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,6 +44,89 @@ backdrop-filter:blur(20px);
 border-right:1px solid var(--border);
 }
 
+.theme-neon button,
+.theme-neon .shopItem{
+  box-shadow: 0 0 12px #00ffcc, 0 0 30px #00ffcc55;
+}
+
+.close-btn{
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:10px;
+  background:rgba(255,255,255,.1);
+  color:white;
+  cursor:pointer;
+  font-size:20px;
+  transition:.2s;
+}
+
+.close-btn:hover{
+  background:rgba(255,255,255,.2);
+  transform:scale(1.05);
+}
+
+.theme-galaxy{
+  overflow-x:hidden;
+}
+
+.panic-btn{
+  padding:12px 16px;
+  border-radius:14px;
+  border:1px solid rgba(255,80,80,0.35);
+  background:rgba(255,60,60,0.12);
+  color:white;
+  cursor:pointer;
+  font-weight:600;
+  transition:all .2s ease;
+}
+
+.panic-btn:hover{
+  background:rgba(255,60,60,0.22);
+  border-color:rgba(255,100,100,0.6);
+  box-shadow:0 0 15px rgba(255,60,60,0.25);
+  transform:translateY(-2px);
+}
+
+.panic-btn:active{
+  transform:translateY(0);
+}
+
+.star-field{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  pointer-events:none;
+  z-index:0;
+}
+
+.star-field div{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  opacity:0.7;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+  from{opacity:0.2;transform:scale(1)}
+  to{opacity:1;transform:scale(1.8)}
+}
+
+@keyframes rainbowMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.theme-gold button{
+  box-shadow: 0 0 10px rgba(255, 200, 0, 0.6),
+              0 0 25px rgba(255, 140, 0, 0.4);
+}
+
 .sidebar-btn{
 border:none;
 border-radius:20px;
@@ -56,6 +138,10 @@ cursor:pointer;
 transition:.25s;
 }
 
+@keyframes fall {
+  from { transform: translateY(-20vh) rotate(0deg); opacity: 1; }
+  to { transform: translateY(120vh) rotate(360deg); opacity: 0; }
+}
 .sidebar-btn:hover{
 transform:translateY(-2px);
 box-shadow:0 8px 25px rgba(59,130,246,.35);
@@ -92,6 +178,11 @@ color:white;
 cursor:pointer;
 }
 
+.fx-emoji{
+  z-index:9999;
+  animation: spin 3s linear infinite;
+}
+
 .letter-section{
 max-width:1200px;
 margin:30px auto;
@@ -106,6 +197,32 @@ border:1px solid var(--border);
 font-size:38px;
 font-weight:800;
 margin-bottom:20px;
+}
+
+.admin-btn{
+  padding:12px 16px;
+  border-radius:14px;
+  border:1px solid rgba(255,215,0,0.35);
+  background:rgba(255,215,0,0.12);
+  color:white;
+  cursor:pointer;
+  font-weight:600;
+  transition:all .2s ease;
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+}
+
+.admin-btn:hover{
+  background:rgba(255,215,0,0.22);
+  border-color:rgba(255,215,0,0.6);
+  box-shadow:
+    0 0 15px rgba(255,215,0,0.25),
+    0 0 30px rgba(255,215,0,0.12);
+  transform:translateY(-2px);
+}
+
+.admin-btn:active{
+  transform:translateY(0);
 }
 
 .buttons-container{
@@ -136,13 +253,51 @@ box-shadow:0 15px 40px rgba(59,130,246,.3);
 </style>
 
 <style>
-body{background:#0b0b0b;color:white;font-family:Inter,sans-serif;}
+body{
+color:white;
+font-family:Inter,sans-serif;
+}
 
-.toolbar{display:flex;gap:12px;justify-content:center;margin:10px 0 15px 0;}
+.toolbar{display:flex;gap:12px;justify-content:center;margin:10px 0 15px 0;flex-wrap:wrap;}
 .toolbar button{padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:white;cursor:pointer;font-weight:600;transition:0.2s;}
 .toolbar button:hover{background:rgba(255,255,255,0.18);}
 
-#mainSearch{width:100%;max-width:420px;padding:12px;border-radius:10px;border:none;margin:10px auto;display:block;}
+#mainSearch{
+    width:100%;
+    max-width:500px;
+    margin:15px auto 25px auto;
+    display:block;
+    padding:16px 22px;
+    border-radius:24px;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06));
+    border:1px solid rgba(255,255,255,0.22);
+    backdrop-filter:blur(25px) saturate(180%);
+    -webkit-backdrop-filter:blur(25px) saturate(180%);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.25), inset 0 -1px 1px rgba(255,255,255,0.08);
+    outline:none;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease;
+}
+
+#mainSearch::placeholder{
+    color:rgba(255,255,255,0.7);
+    font-weight:500;
+}
+
+#mainSearch:hover{
+    transform:translateY(-2px);
+    background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08));
+    box-shadow: 0 15px 50px rgba(59,130,246,0.25), inset 0 1px 1px rgba(255,255,255,0.3), inset 0 -1px 1px rgba(255,255,255,0.1);
+}
+
+#mainSearch:focus{
+    transform:translateY(-3px);
+    border-color:rgba(96,165,250,0.6);
+    background: linear-gradient(135deg, rgba(255,255,255,0.24), rgba(255,255,255,0.1));
+    box-shadow: 0 0 0 4px rgba(59,130,246,0.15), 0 18px 60px rgba(59,130,246,0.35), inset 0 1px 1px rgba(255,255,255,0.35);
+}
 
 .game{position:relative;}
 .game button{
@@ -170,17 +325,68 @@ body{background:#0b0b0b;color:white;font-family:Inter,sans-serif;}
 #favPanel{position:fixed;right:0;top:0;width:280px;height:100%;background:#111;color:#fff;padding:15px;transform:translateX(100%);transition:.3s;overflow:auto;}
 #favPanel.open{transform:translateX(0)}
 
+#shopPanel{
+position:fixed;
+left:0;
+top:0;
+width:320px;
+height:100%;
+background:#111;
+color:white;
+padding:15px;
+overflow:auto;
+transform:translateX(-100%);
+transition:.3s;
+z-index:9999;
+}
+
+#shopPanel.open{
+transform:translateX(0);
+}
+
+.shopItem{
+padding:12px;
+margin:10px 0;
+background:rgba(255,255,255,.08);
+border-radius:15px;
+cursor:pointer;
+}
+
+.shopItem:hover{
+background:rgba(255,255,255,.15);
+}
+
 .eggplant{position:fixed;pointer-events:none;animation:spin linear infinite;opacity:0.8;}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 </style>
 
 <script>
-let favourites=[];
+let favourites = JSON.parse(localStorage.getItem("favourites") || "[]");
+let eggplants = parseInt(localStorage.getItem("eggplants")) || 0;
+let admin = localStorage.getItem("admin") === "true";
+let unlocks = JSON.parse(localStorage.getItem("unlocks") || "{}");
+let currentTheme = localStorage.getItem("theme") || "default";
+
+function clearThemeEffects(){
+  document.querySelectorAll(".fx-emoji").forEach(e => e.remove());
+  const starField = document.querySelector(".star-field");
+  if(starField) starField.remove();
+}
 
 function lucky(){
  const g=document.querySelectorAll('.game button');
  if(!g.length)return;
  g[Math.floor(Math.random()*g.length)].click();
+}
+
+function updateEggplants(){
+  const el = document.getElementById("eggplantAmount");
+  if(eggplants === Infinity){
+    el.textContent = "∞";
+  } else {
+    el.textContent = Math.floor(eggplants);
+  }
+  localStorage.setItem("eggplants", String(eggplants));
 }
 
 function openFav(){
@@ -190,6 +396,7 @@ function openFav(){
    const d=document.createElement('div');
    d.textContent=name;
    d.style.margin='8px 0';
+   d.style.cursor='pointer';
    d.onclick=()=>{
      const btn=[...document.querySelectorAll('.game button')].find(b=>b.textContent===name);
      if(btn) btn.click();
@@ -212,74 +419,384 @@ function createEggplants(){
  }
 }
 
+// ==================== THEME FUNCTIONS ====================
+
+function clearThemeEffects(){
+  document.querySelectorAll(".fx-emoji").forEach(e => e.remove());
+  const starField = document.querySelector(".star-field");
+  if(starField) starField.remove();
+}
+
+function setDefaultTheme(){
+  const root = document.documentElement;
+  root.style.setProperty("--bg1", "#08111f");
+  root.style.setProperty("--bg2", "#131c35");
+  document.body.style.background = "linear-gradient(135deg, var(--bg1), var(--bg2))";
+  document.body.style.animation = "";
+  document.body.style.backgroundSize = "";
+}
+
+function createStars(){
+  if(document.querySelector(".star-field")) return;
+  const field = document.createElement("div");
+  field.className = "star-field";
+  document.body.appendChild(field);
+  for(let i=0;i<120;i++){
+    const star = document.createElement("div");
+    star.style.left = Math.random()*100 + "vw";
+    star.style.top = Math.random()*100 + "vh";
+    star.style.animationDuration = (1 + Math.random()*3) + "s";
+    field.appendChild(star);
+  }
+}
+
+function enableNeonGlow(){
+  document.querySelectorAll("button, .shopItem").forEach(el => {
+    el.style.boxShadow = "0 0 12px #00ffcc, 0 0 30px #00ffcc55";
+  });
+}
+
+function applyTheme(theme){
+  currentTheme = theme;
+  localStorage.setItem("theme", theme);
+  clearThemeEffects();
+
+    if(theme === "custom"){
+    loadCustomTheme();
+    return;
+  }
+
+  if(theme === "default"){
+    setDefaultTheme();
+    return;
+  }
+
+  if(theme === "gold"){
+    document.documentElement.style.setProperty("--bg1", "#1a1408");
+    document.documentElement.style.setProperty("--bg2", "#3d2a00");
+    document.body.style.background = 
+      "linear-gradient(135deg, #1a1408, #3d2a00, #8c5a00, #ffd700, #ffeb99)";
+    document.body.style.backgroundSize = "400% 400%";
+    document.body.style.animation = "rainbowMove 8s ease infinite";
+    return;
+  }
+
+  if(theme === "ocean"){
+    document.body.style.background = 
+      "linear-gradient(270deg, #001f3d, #003366, #0066cc, #00aaff, #66ddff, #aaddff)";
+    document.body.style.backgroundSize = "1200% 1200%";
+    document.body.style.animation = "rainbowMove 8s ease infinite";
+    return;
+  }
+
+  if(theme === "forest"){
+    document.body.style.background = 
+      "linear-gradient(270deg, #0b1f0b, #1a3d1a, #2e6b2e, #4a9c4a, #7acc7a, #aaffaa)";
+    document.body.style.backgroundSize = "1200% 1200%";
+    document.body.style.animation = "rainbowMove 8s ease infinite";
+    return;
+  }
+
+  if(theme === "lava"){
+    document.body.style.background = 
+      "linear-gradient(270deg, #330000, #661100, #aa2200, #ff4400, #ff8800, #ffcc66)";
+    document.body.style.backgroundSize = "1200% 1200%";
+    document.body.style.animation = "rainbowMove 8s ease infinite";
+    return;
+  }
+
+  if(theme === "ice"){
+    document.body.style.background = 
+      "linear-gradient(270deg, #e6f0ff, #a3d8ff, #66c2ff, #3399ff, #99eeff, #ccffff)";
+    document.body.style.backgroundSize = "1200% 1200%";
+    document.body.style.animation = "rainbowMove 8s ease infinite";
+    return;
+  }
+
+  if(theme === "rainbow"){
+    document.body.style.background = "linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet)";
+    document.body.style.backgroundSize = "1200% 1200%";
+    document.body.style.animation = "rainbowMove 8s ease infinite";
+    return;
+  }
+
+  if(theme === "neon"){
+    document.documentElement.style.setProperty("--bg1", "#001a1a");
+    document.documentElement.style.setProperty("--bg2", "#002b36");
+    enableNeonGlow();
+    return;
+  }
+
+  if(theme === "galaxy"){
+    document.documentElement.style.setProperty("--bg1", "#050014");
+    document.documentElement.style.setProperty("--bg2", "#12002b");
+    createStars();
+    return;
+  }
+}
+
+
+
+let panicKey = localStorage.getItem("panicKey") || "Tab";
+let panicSite = localStorage.getItem("panicSite") || "https://google.com";
+
+function setupPanicKey(){
+  const key = prompt("Enter panic key.\nExamples:\nTab\nEscape\nControl\nShift\nAlt\np");
+  if(!key) return;
+  const site = prompt("Enter panic website URL:", panicSite);
+  if(!site) return;
+
+  panicKey = key;
+  panicSite = site;
+  localStorage.setItem("panicKey", panicKey);
+  localStorage.setItem("panicSite", panicSite);
+  alert("Panic key saved!");
+}
+
+document.addEventListener("keydown", (e) => {
+  if(e.key.toLowerCase() === panicKey.toLowerCase() || e.code.toLowerCase() === panicKey.toLowerCase()){
+    window.location.href = panicSite;
+  }
+});
+
+function openShop(){
+  const panel = document.getElementById("shopPanel");
+  const items = [
+    { id: "default", icon: "⚫", name: "Default Theme", cost: 0 },
+    { id: "gold", icon: "🟡", name: "Gold Theme", cost: 100 },
+    { id: "rainbow", icon: "🌈", name: "Rainbow Theme", cost: 250 },
+    { id: "neon", icon: "💚", name: "Neon Button Outline", cost: 500 },
+    { id: "galaxy", icon: "🌌", name: "Galaxy Stars", cost: 750 },
+    { id: "ocean", icon: "🌊", name: "Ocean Theme", cost: 150 },
+    { id: "forest", icon: "🌲", name: "Forest Theme", cost: 150 },
+    { id: "lava", icon: "🌋", name: "Lava Theme", cost: 150 },
+    { id: "ice", icon: "❄️", name: "Ice Theme", cost: 150 },
+    { id: "custom", icon: "🎨", name: "Custom Theme Maker", cost: 400 }
+  ];
+
+  panel.innerHTML = `
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <h2>🛒 Shop</h2>
+    <button class="close-btn" onclick="closeShop()">✕</button>
+  </div>
+`;
+
+  items.forEach(item => {
+    const owned = unlocks[item.id] || item.cost === 0;
+    const equipped = (currentTheme === item.id);
+
+    const div = document.createElement("div");
+    div.className = "shopItem";
+    div.innerHTML = `
+      ${item.icon} ${item.name} - ${item.cost} 🍆
+      ${equipped ? "<b style='float:right;color:cyan;'>Equipped</b>" : ""}
+      ${owned && !equipped ? "<b style='float:right;color:lime;'>Owned</b>" : ""}
+    `;
+
+    div.onclick = () => {
+      if(item.id === "default"){
+        applyTheme("default");
+        return;
+      }
+      if(!unlocks[item.id]){
+        buyItem(item.id, item.cost);
+        return;
+      }
+      applyTheme(item.id);
+    };
+    panel.appendChild(div);
+  });
+
+  panel.classList.toggle("open");
+}
+
+function buyItem(item, cost){
+  if(unlocks[item]){
+    alert("Already purchased!");
+    return;
+  }
+  if(admin || eggplants >= cost){
+    if(!admin) eggplants -= cost;
+    unlocks[item] = true;
+    localStorage.setItem("unlocks", JSON.stringify(unlocks));
+    updateEggplants();
+    applyTheme(item);
+    alert("Purchased: " + item);
+    openShop();
+  } else {
+    alert("Not enough 🍆");
+  }
+}
+
+function closeShop(){
+  document.getElementById("shopPanel").classList.remove("open");
+}
+
+function spawnFX(emoji, count){
+  clearThemeEffects();
+  for(let i=0;i<count;i++){
+    const el = document.createElement("div");
+    el.className = "fx-emoji";
+    el.textContent = emoji;
+    el.style.position = "fixed";
+    el.style.left = Math.random()*100 + "vw";
+    el.style.top = Math.random()*100 + "vh";
+    el.style.fontSize = "22px";
+    el.style.pointerEvents = "none";
+    el.style.opacity = "0.8";
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(), 3500);
+  }
+}
+
+function setDefaultTheme(){
+  const root = document.documentElement;
+  root.style.setProperty("--bg1", "#08111f");
+  root.style.setProperty("--bg2", "#131c35");
+  document.body.style.background = "linear-gradient(135deg,var(--bg1),var(--bg2))";
+  document.body.style.animation = "";
+  document.body.style.backgroundSize = "";
+}
+
+function createStars(){
+  if(document.querySelector(".star-field")) return;
+  const field = document.createElement("div");
+  field.className = "star-field";
+  document.body.appendChild(field);
+  for(let i=0;i<120;i++){
+    const star = document.createElement("div");
+    star.style.left = Math.random()*100 + "vw";
+    star.style.top = Math.random()*100 + "vh";
+    star.style.animationDuration = (1 + Math.random()*3) + "s";
+    field.appendChild(star);
+  }
+}
+
+function enableNeonGlow(){
+  document.querySelectorAll("button").forEach(btn=>{
+    btn.style.boxShadow = "0 0 10px #00ffcc, 0 0 25px #00ffcc66";
+  });
+}
+
 function rebuildGames(){
- const inputs=document.querySelectorAll('input[type="button"]');
- inputs.forEach(old=>{
-   const wrapper=document.createElement('div');
-   wrapper.className='game';
+  document.querySelectorAll('input[type="button"]').forEach(old => {
+    if(old.parentElement && old.parentElement.classList.contains('game')) return;
 
-   const btn=document.createElement('button');
-   btn.textContent=old.value;
-   btn.onclick=old.onclick;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'game';
 
-   const star=document.createElement('span');
-   star.className='star';
-   star.textContent='☆';
+    const btn = document.createElement('button');
+    btn.textContent = old.value || old.textContent || "Unnamed Game";
 
-   star.onclick=(e)=>{
-     e.stopPropagation();
-     const name=btn.textContent;
-     if(favourites.includes(name)){
-       favourites=favourites.filter(x=>x!==name);
-       star.textContent='☆';
-     }else{
-       favourites.push(name);
-       star.textContent='★';
-     }
-   };
+    btn.onclick = () => {
+      eggplants++;
+      updateEggplants();
+      if(typeof old.onclick === "function") old.onclick();
+    };
 
-   wrapper.appendChild(btn);
-   wrapper.appendChild(star);
-   old.replaceWith(wrapper);
- });
+    const star = document.createElement('span');
+    star.className = 'star';
+    star.textContent = favourites.includes(btn.textContent) ? "★" : "☆";
+
+    star.onclick = (e) => {
+      e.stopPropagation();
+      const name = btn.textContent;
+      if(favourites.includes(name)){
+        favourites = favourites.filter(x => x !== name);
+        star.textContent = "☆";
+      } else {
+        favourites.push(name);
+        star.textContent = "★";
+      }
+      localStorage.setItem("favourites", JSON.stringify(favourites));
+    };
+
+    wrapper.appendChild(btn);
+    wrapper.appendChild(star);
+    old.replaceWith(wrapper);
+  });
 }
 
 function setupSearch(){
- const input=document.getElementById('mainSearch');
- input.addEventListener('input',()=>{
-   const term=input.value.toLowerCase();
-   document.querySelectorAll('.game').forEach(game=>{
-     const name=game.querySelector('button').textContent.toLowerCase();
-     game.style.display = name.includes(term) ? 'block' : 'none';
-   });
- });
+  const input = document.getElementById('mainSearch');
+  if(!input) return;
+
+  input.addEventListener('input', () => {
+    const term = input.value.toLowerCase().trim();
+
+    // Loop through all letter sections
+    document.querySelectorAll('.letter-section').forEach(section => {
+      let hasVisibleGame = false;
+
+      // Check each game inside this section
+      section.querySelectorAll('.game').forEach(game => {
+        const btn = game.querySelector('button');
+        if(!btn) return;
+        
+        const name = btn.textContent.toLowerCase();
+        const isMatch = term === "" || name.includes(term);
+        
+        game.style.display = isMatch ? 'block' : 'none';
+        
+        if(isMatch) hasVisibleGame = true;
+      });
+
+      // Hide the entire letter section if no games match
+      section.style.display = hasVisibleGame ? 'block' : 'none';
+    });
+  });
 }
 
-// shortcut
 document.addEventListener('keydown',(e)=>{
  if(e.ctrlKey && e.shiftKey && e.key.toLowerCase()==='z'){
-   window.location.href='https://app.educationperfect.com/learning/dashboard';
+   window.location.href='https://classroom.google.com/';
  }
 });
 
 window.addEventListener('load',()=>{
- createEggplants();
- setTimeout(()=>{
-   rebuildGames();
-   setupSearch();
- },2000);
+  updateEggplants();
+  createEggplants();
+  favourites = JSON.parse(localStorage.getItem("favourites") || "[]");
+  applyTheme(currentTheme);
+
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/game.js';
+  script.onload = () => setTimeout(() => { rebuildGames(); setupSearch(); }, 1200);
+  document.body.appendChild(script);
+
+    // Custom theme slider live update
+  const customInputs = document.querySelectorAll('#customPanel input');
+  customInputs.forEach(input => {
+    input.addEventListener('input', updateCustomPreview);
+  });
+
+  setTimeout(() => { rebuildGames(); setupSearch(); }, 3000);
+
+  if(localStorage.getItem("code") === "Eggplant4Lyfe"){
+    admin = true;
+    eggplants = Infinity;
+    updateEggplants();
+    alert("🍆 Admin Enabled (∞ Eggplants)");
+  }
+
+  const toolbar = document.querySelector(".toolbar");
+  if(toolbar){
+    const clicker = document.createElement("button");
+    clicker.innerText = "🍆 Clicker";
+    clicker.onclick = () => window.location.href = "https://radioactivedonuts.github.io/EggplantClicker/";
+    toolbar.appendChild(clicker);
+  }
 });
 </script>
 </head>
 <body>
-    <div class="sidebar" id="sidebar">
-    </div>
+    <div class="sidebar" id="sidebar"></div>
 
     <div class="main-content">
 <div style="text-align:center">
 
 <div class="toolbar">
-<button onclick="window.open('https://docs.google.com/document/d/1Ux_lTeTMAcPyvBOHbFFvvHyP3zcODvJ_HfFDTsTN8rc/','_blank')">📄 Game List</button>
+<button onclick="window.open('https://docs.google.com/document/d/1Ux_lTeTMAcPyvBOHbFFvvHyP3zcODvJ_HfFDTsTN8rc/edit?tab=t.15gnc7ih9cs6','_blank')">📄 Game List</button>
 </div>
 
 <input id="mainSearch" placeholder="Search games...">
@@ -287,134 +804,203 @@ window.addEventListener('load',()=>{
 <div class="toolbar">
 <button onclick="lucky()">🎲 Im Feeling Lucky</button>
 <button onclick="openFav()">⭐ Favorites</button>
-<button onclick="window.location.href='https://classroom.google.com/'">📚Google Classroom</button>
+<button onclick="openShop()">🛒 Shop</button>
+<button onclick="openCustomPanel()">🎨 Custom</button>
+<button onclick="window.location.href='https://classroom.google.com/'">📚 Classroom</button>
 </div>
+
+<button class="admin-btn" onclick="adminLogin()">👑 Admin Login</button>
+
+<button class="panic-btn" onclick="setupPanicKey()">
+⚠️ Panic Key
+</button>
 
 </div>
 <div id="favPanel"></div>
+<div id="shopPanel"></div>
+<div id="customPanel" style="position:fixed; left:50%; top:50%; transform:translate(-50%, -50%); width:620px; background:#1a1a1a; border-radius:20px; padding:25px; display:none; z-index:10000; box-shadow:0 0 40px rgba(0,0,0,0.8);">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+    <h2>🎨 Custom Theme Creator</h2>
+    <button class="close-btn" onclick="closeCustomPanel()">✕</button>
+  </div>
+
+  <div id="customPreview" style="height:180px; border-radius:16px; margin:15px 0; transition:all 0.4s;"></div>
+
+  <label>Color 1 <input type="color" id="customC1" value="#330000"></label><br><br>
+  <label>Color 2 <input type="color" id="customC2" value="#ff4400"></label><br><br>
+  <label>Color 3 <input type="color" id="customC3" value="#ffaa00"></label><br><br>
+  <label>Color 4 <input type="color" id="customC4" value="#ffdd88"></label><br><br>
+
+  <label>Animation Speed: <span id="speedVal">10</span>s</label>
+  <input type="range" id="customSpeed" min="3" max="30" value="10" step="0.5" style="width:100%;">
+
+  <div style="margin-top:25px; display:flex; gap:12px;">
+    <button onclick="applyCustomToLive()" style="flex:1; padding:14px;">Apply Now</button>
+    <button onclick="saveCustomTheme()" style="flex:1; padding:14px; background:#ff8800;">Save Custom Theme</button>
+  </div>
+</div>
 
         <h1>The 🍆 Files</h1>
+
+<div id="eggplantCounter"
+style="text-align:center;font-size:24px;font-weight:700;margin-bottom:15px;">
+🍆 <span id="eggplantAmount">0</span>
+</div>
+
     <h2 style="color: white; text-align: center; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-weight: normal; font-size: 18px;">
     Files from 
-    <a href="https://docs.google.com/document/d/1Ux_lTeTMAcPyvBOHbFFvvHyP3zcODvJ_HfFDTsTN8rc/" 
+    <a href="https://docs.google.com/document/d/1Ux_lTeTMAcPyvBOHbFFvvHyP3zcODvJ_HfFDTsTN8rc/edit?tab=t.0" 
         target="_blank" 
         style="display: inline; color: #79aadb; text-decoration: none; font-size: 18px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
         a document by @TheEggplantFiles
     </a>
-  
-    <h2 style="color: white; text-align: center; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-weight: normal; font-size: 18px;">
-
-        
-        
-    <button id="lolbutton" onclick="const script = document.createElement('script');script.src = 'https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@latest/game.js';document.body.appendChild(script);">Click to load if it isnt loading</button>
     </h2> 
 
-        
-        <div id="sections-container">  
-        </div>
+    <button id="lolbutton" onclick="const script = document.createElement('script');script.src = 'https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@latest/game.js';document.body.appendChild(script);">Click to load if it isnt loading</button>
+
+    <div id="sections-container">  
     </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/gh/bubbls/ugs-singlefile@main/game.js"></script>
+
     <script>
-// =====================
-// PANIC SYSTEM (FULL)
-// =====================
-let panicKey = prompt("Set panic key (1 key):") || "z";
-let panicURL = prompt("Set panic website:") || "https://classroom.google.com/";
+    // ===== RESTORED MINECRAFT SPLASH TEXT =====
+    setTimeout(() => {
+      const splashTexts = [
+        "THE REDACTED FILES",
+        "EGGPLANTOSIS",
+        "AUBERGINE",
+        "EPSTEINS SUCCESOR",
+        "EGGPLANTS4LIFE",
+        "SUS?!",
+        "EGGPLANTOSIS 2: THE RETURN",
+        "TRUMP IS IN THE FILES (20 TIMES)"
+      ];
 
-function panic(){
-  window.location.href = panicURL;
+      const splash = document.createElement("div");
+      splash.textContent = splashTexts[Math.floor(Math.random() * splashTexts.length)];
+
+      splash.style.position = "absolute";
+      splash.style.fontSize = "42px";
+      splash.style.color = "#ffff55";
+      splash.style.fontWeight = "800";
+      splash.style.fontFamily = "Inter, sans-serif";
+      splash.style.textShadow = "3px 3px 0 rgba(0,0,0,0.8)";
+      splash.style.transformOrigin = "center";
+      splash.style.pointerEvents = "none";
+      splash.style.zIndex = "9999";
+
+      splash.animate(
+        [
+          { transform: "rotate(-20deg) scale(1)" },
+          { transform: "rotate(-20deg) scale(1.15)" },
+          { transform: "rotate(-20deg) scale(1)" }
+        ],
+        {
+          duration: 600,
+          iterations: Infinity
+        }
+      );
+
+      const title = document.querySelector("h1");
+      if (title) {
+        title.style.position = "relative";
+        splash.style.left = "300px";
+        splash.style.top = "-35px";
+        title.appendChild(splash);
+      }
+    }, 500);
+
+    const credit = document.createElement("div");
+    credit.innerText = "created by RadioactiveDonuts";
+    credit.style = `position:fixed;bottom:10px;right:10px;font-size:12px;opacity:0.7;`;
+    document.body.appendChild(credit);
+
+function adminLogin(){
+  const password = prompt("Enter admin password:");
+
+  if(password === "Eggplants4Lyfe"){
+    localStorage.setItem("code","Eggplant4Lyfe");
+    localStorage.setItem("admin","true");
+
+    admin = true;
+    eggplants = Infinity;
+    updateEggplants();
+
+    alert("👑 Admin Enabled!");
+    location.reload();
+  }else{
+    alert("❌ Incorrect password.");
+  }
 }
 
-// key trigger
-document.addEventListener("keydown", (e)=>{
-  if(e.key.toLowerCase() === panicKey.toLowerCase()){
-    panic();
-  }
-});
+function openCustomPanel(){
+  document.getElementById('customPanel').style.display = 'block';
+  updateCustomPreview();
+}
 
-// =====================
-// TURN DASHBOARD INTO PANIC
-// =====================
-document.querySelectorAll("button").forEach(btn=>{
-  if(btn.innerText.toLowerCase().includes("dashboard")){
-    btn.innerText = "🚨 Panic";
-    btn.onclick = panic;
-  }
-});
+function closeCustomPanel(){
+  document.getElementById('customPanel').style.display = 'none';
+}
 
-// =====================
-// ADD CLICKER BUTTON
-// =====================
-const toolbar = document.querySelector(".toolbar");
-if(toolbar){
-  const clicker = document.createElement("button");
-  clicker.innerText = "🍆 Clicker";
-  clicker.onclick = () => {
-    window.location.href = "https://radioactivedonuts.github.io/EggplantClicker/";
+function updateCustomPreview(){
+  const c1 = document.getElementById('customC1').value;
+  const c2 = document.getElementById('customC2').value;
+  const c3 = document.getElementById('customC3').value;
+  const c4 = document.getElementById('customC4').value;
+  const speed = document.getElementById('customSpeed').value;
+
+  document.getElementById('speedVal').textContent = speed;
+
+  const preview = document.getElementById('customPreview');
+  preview.style.background = `linear-gradient(270deg, ${c1}, ${c2}, ${c3}, ${c4})`;
+  preview.style.backgroundSize = "1200% 1200%";
+  preview.style.animation = `rainbowMove ${speed}s ease infinite`;
+}
+
+function applyCustomToLive(){
+  const c1 = document.getElementById('customC1').value;
+  const c2 = document.getElementById('customC2').value;
+  const c3 = document.getElementById('customC3').value;
+  const c4 = document.getElementById('customC4').value;
+  const speed = document.getElementById('customSpeed').value;
+
+  document.body.style.background = `linear-gradient(270deg, ${c1}, ${c2}, ${c3}, ${c4})`;
+  document.body.style.backgroundSize = "1200% 1200%";
+  document.body.style.animation = `rainbowMove ${speed}s ease infinite`;
+  
+  currentTheme = "custom";
+  localStorage.setItem("theme", "custom");
+  closeCustomPanel();
+  alert("✅ Custom theme applied live!");
+}
+
+function saveCustomTheme(){
+  const themeData = {
+    c1: document.getElementById('customC1').value,
+    c2: document.getElementById('customC2').value,
+    c3: document.getElementById('customC3').value,
+    c4: document.getElementById('customC4').value,
+    speed: document.getElementById('customSpeed').value
   };
-  toolbar.appendChild(clicker);
+  localStorage.setItem("customTheme", JSON.stringify(themeData));
+  alert("💾 Custom theme saved! You can load it later.");
 }
 
-// =====================
-// FIX SEARCH (REAL FIX)
-// =====================
-const search =
-  document.getElementById("mainSearch") ||
-  document.getElementById("searchInput");
+function loadCustomTheme(){
+  const saved = localStorage.getItem("customTheme");
+  if(!saved) {
+    alert("No custom theme saved yet. Create one first.");
+    return;
+  }
+  const t = JSON.parse(saved);
 
-if(search){
-  search.addEventListener("input", ()=>{
-    const term = search.value.toLowerCase();
-
-    document.querySelectorAll(".game").forEach(game=>{
-      const btn = game.querySelector("button");
-      if(!btn) return;
-
-      const name = btn.textContent.toLowerCase();
-      game.style.display = name.includes(term) ? "block" : "none";
-    });
-  });
+  document.body.style.background = `linear-gradient(270deg, ${t.c1}, ${t.c2}, ${t.c3}, ${t.c4})`;
+  document.body.style.backgroundSize = "1200% 1200%";
+  document.body.style.animation = `rainbowMove ${t.speed}s ease infinite`;
 }
 
-// =====================
-// MINECRAFT SPLASH TEXT
-// =====================
-const splashTexts = [
-  "EPIC","INSANE","NO WAY","LEGENDARY",
-  "CRAZY","PRO","UNBLOCKED","100% REAL",
-  "SUS?!","NO VIRUS 😎"
-];
-
-const splash = document.createElement("div");
-splash.innerText = splashTexts[Math.floor(Math.random()*splashTexts.length)];
-
-splash.style = `
- position:fixed;
- top:10px;
- left:15px;
- color:yellow;
- font-weight:bold;
- transform:rotate(-15deg);
- z-index:9999;
- pointer-events:none;
-`;
-document.body.appendChild(splash);
-
-// =====================
-// CREDIT TEXT
-// =====================
-const credit = document.createElement("div");
-credit.innerText = "created by RadioactiveDonuts";
-
-credit.style = `
- position:fixed;
- bottom:10px;
- right:10px;
- font-size:12px;
- opacity:0.7;
-`;
-document.body.appendChild(credit);
-</script>
-
-   </body> 
-   </html>
+    </script>
+</body>
+</html>

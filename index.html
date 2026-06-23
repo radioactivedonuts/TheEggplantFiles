@@ -817,6 +817,12 @@ window.addEventListener('load',()=>{
 <button onclick="openCustomPanel()">🎨 Custom</button>
 <button onclick="openTasksPanel()">📋 Tasks</button>
 <button onclick="window.location.href='https://classroom.google.com/'">📚 Classroom</button>
+<button onclick="
+localStorage.removeItem('loggedInUser');
+location.reload();
+">
+Logout
+</button>
 </div>
 
 <button class="admin-btn" onclick="adminLogin()">👑 Admin Login</button>
@@ -848,6 +854,47 @@ window.addEventListener('load',()=>{
     <button onclick="applyCustomToLive()" style="flex:1; padding:14px;">Apply Now</button>
     <button onclick="saveCustomTheme()" style="flex:1; padding:14px; background:#ff8800;">Save Custom Theme</button>
   </div>
+</div>
+
+
+<div id="authScreen" style="
+position:fixed;
+inset:0;
+background:#111;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:99999;
+">
+
+<div style="
+width:350px;
+padding:25px;
+background:#1e1e1e;
+border-radius:20px;
+text-align:center;
+color:white;
+">
+
+<h2>🍆 The Eggplant Files</h2>
+
+<input id="emailInput" type="email" placeholder="Email"
+style="width:100%;padding:12px;margin:8px 0;border-radius:10px;">
+
+<input id="passwordInput" type="password" placeholder="Password"
+style="width:100%;padding:12px;margin:8px 0;border-radius:10px;">
+
+<button onclick="registerAccount()"
+style="width:100%;padding:12px;margin-top:10px;">
+Register
+</button>
+
+<button onclick="loginAccount()"
+style="width:100%;padding:12px;margin-top:10px;">
+Login
+</button>
+
+</div>
 </div>
 
 <div id="tasksPanel" style="position:fixed; left:0; top:0; width:340px; height:100%; background:#111; color:white; padding:20px; transform:translateX(-100%); transition:.4s; overflow:auto; z-index:9999;">
@@ -984,6 +1031,8 @@ function renderTasks() {
     container.appendChild(div);
   });
 }
+
+
 
 function claimReward(id) {
   const task = tasks.find(t => t.id === id);
@@ -1132,6 +1181,118 @@ function saveCustomTheme(){
   localStorage.setItem("customTheme", JSON.stringify(themeData));
   alert("💾 Custom theme saved! You can load it later.");
 }
+
+function registerAccount(){
+
+  const email =
+    document.getElementById("emailInput").value.trim().toLowerCase();
+
+  const password =
+    document.getElementById("passwordInput").value;
+
+  if(!email || !password){
+    alert("Fill everything in.");
+    return;
+  }
+
+  // Basic email validation
+  if(
+    !email.includes("@") ||
+    !email.includes(".") ||
+    email.startsWith("@") ||
+    email.endsWith(".")
+  ){
+    alert("Enter a valid email address.");
+    return;
+  }
+
+  let accounts =
+    JSON.parse(localStorage.getItem("accounts") || "{}");
+
+  if(accounts[email]){
+    alert("Account already exists.");
+    return;
+  }
+
+  accounts[email] = {
+    password: password,
+
+    // New account starts fresh
+    eggplants: 0,
+    favourites: [],
+    unlocks: {},
+    theme: "default",
+    tasks: []
+  };
+
+  localStorage.setItem(
+    "accounts",
+    JSON.stringify(accounts)
+  );
+
+  alert("Account created! Please log in.");
+}
+
+function loginAccount(){
+
+  const email =
+    document.getElementById("emailInput").value.trim().toLowerCase();
+
+  const password =
+    document.getElementById("passwordInput").value;
+
+  let accounts =
+    JSON.parse(localStorage.getItem("accounts") || "{}");
+
+  if(
+    accounts[email] &&
+    accounts[email].password === password
+  ){
+
+    localStorage.setItem("loggedInUser", email);
+
+    // Load account data
+    localStorage.setItem(
+      "eggplants",
+      accounts[email].eggplants || 0
+    );
+
+    localStorage.setItem(
+      "favourites",
+      JSON.stringify(accounts[email].favourites || [])
+    );
+
+    localStorage.setItem(
+      "unlocks",
+      JSON.stringify(accounts[email].unlocks || {})
+    );
+
+    localStorage.setItem(
+      "theme",
+      accounts[email].theme || "default"
+    );
+
+    document.getElementById("authScreen").style.display = "none";
+
+    location.reload();
+  }
+  else{
+    alert("Wrong email or password.");
+  }
+}
+
+window.addEventListener("load", () => {
+
+  const user =
+    localStorage.getItem("loggedInUser");
+
+  if(user){
+    document.getElementById(
+      "authScreen"
+    ).style.display = "none";
+  }
+});
+
 
 function loadCustomTheme(){
   const saved = localStorage.getItem("customTheme");
